@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>堆排序：从二叉堆到原地排序 — 胡逸枫的博客</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Yifeng Hu</a>
+      <ul class="nav-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="../blog.html">博客</a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="main">
+    <article class="blog-post">
+      <a href="../blog.html" class="back-link">← 返回博客列表</a>
+      <h1>堆排序：从二叉堆到原地排序</h1>
+      <p class="meta">2026 年 5 月 5 日 · 胡逸枫 · 算法</p>
+
+      <h2>引言</h2>
+      <p>排序是计算机科学中最基础的问题之一。在众多基于比较的排序算法中，堆排序（Heap Sort）以其 O(n log n) 的最坏时间复杂度和 O(1) 的额外空间开销，占据了独特的位置。它不像快速排序那样依赖随机化来避免最坏情况，也不像归并排序那样需要额外的线性空间。</p>
+      <p>理解堆排序的关键在于理解一种精巧的数据结构——二叉堆。本文将从堆的定义与性质出发，逐步推导堆排序的完整过程。</p>
+
+      <h2>二叉堆</h2>
+      <h3>定义</h3>
+      <p>二叉堆是一棵<strong>完全二叉树</strong>，同时满足<strong>堆序性质</strong>。以最大堆（max-heap）为例，堆序性质要求每个节点的值都大于或等于其所有子节点的值。相应地，最小堆要求每个节点的值都小于或等于其所有子节点的值。</p>
+      <p>堆排序通常使用最大堆来实现升序排序。</p>
+
+      <h3>数组表示</h3>
+      <p>由于完全二叉树的特殊结构，二叉堆可以非常高效地用数组表示，而不需要使用指针。对于数组中下标为 <code>i</code> 的节点：</p>
+      <ul>
+        <li>父节点下标：<code>(i - 1) // 2</code></li>
+        <li>左子节点下标：<code>2i + 1</code></li>
+        <li>右子节点下标：<code>2i + 2</code></li>
+      </ul>
+
+      <p>这种表示方法使得我们可以在 O(1) 时间内找到任意节点的父节点或子节点，并且不需要额外的指针存储，这正是堆排序能够原地工作的基础。</p>
+
+      <h2>核心操作：下沉（Sift-Down）</h2>
+      <p>堆排序中最核心的操作是下沉：当一个节点的值可能小于其子节点时，将该节点与较大的子节点交换，然后递归地对新的位置执行同样的操作，直到堆序性质恢复。这个操作也常被称为 <code>heapify</code> 或 <code>percolate-down</code>。</p>
+
+      <pre><code>def sift_down(arr, n, i):
+    """将 arr[i] 在大小为 n 的堆中下沉，恢复最大堆性质"""
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left &lt; n and arr[left] &gt; arr[largest]:
+        largest = left
+    if right &lt; n and arr[right] &gt; arr[largest]:
+        largest = right
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        sift_down(arr, n, largest)</code></pre>
+
+      <p>下沉操作的时间复杂度为 O(log n)，因为在最坏情况下，节点需要一直下沉到叶子节点，路径长度等于树的高度。</p>
+
+      <h2>建堆</h2>
+      <p>有了下沉操作之后，建堆变得非常简洁。一个朴素的思路是从空堆开始逐个插入元素，但更高效的方式是<strong>从最后一个非叶子节点开始，自底向上地对每个节点执行下沉操作</strong>。</p>
+
+      <blockquote>最后一个非叶子节点的下标为 <code>(n // 2) - 1</code>。从这个节点开始向前遍历到根节点，对每个节点调用 <code>sift_down</code>。</blockquote>
+
+      <pre><code>def build_heap(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        sift_down(arr, n, i)</code></pre>
+
+      <p>这个过程的复杂度分析非常有趣。虽然每次下沉是 O(log n)，但不同高度的节点数量不同。通过精确计算可得，建堆的总时间复杂度为 <strong>O(n)</strong>，而不是直观上猜测的 O(n log n)。</p>
+
+      <h3>建堆复杂度分析</h3>
+      <p>在一个含有 n 个节点的完全二叉树中，高度为 h 的节点最多有 ⌈n / 2^{h+1}⌉ 个。对高度为 h 的节点进行下沉操作需要 O(h) 的时间。因此总时间为：</p>
+
+      <p style="text-align:center; font-size:1.1rem; margin:1rem 0;">
+        Σ<sub>h=0</sub><sup>⌊log n⌋</sup> (n / 2<sup>h+1</sup>) · O(h) = O(n) · Σ<sub>h=0</sub><sup>∞</sup> h / 2<sup>h</sup> = O(n)
+      </p>
+
+      <p>最后一步用到了无穷级数 Σ h/2^h = 2 的性质。因此，<strong>建堆是线性时间的</strong>。</p>
+
+      <h2>排序过程</h2>
+      <p>建堆完成后，数组被组织成了一个最大堆——根节点（下标 0）是最大的元素。排序的思路非常巧妙：</p>
+
+      <ol>
+        <li>将堆顶（最大值）与堆的最后一个元素交换</li>
+        <li>将堆的大小减少 1（最后一个元素已就位）</li>
+        <li>对新的堆顶执行下沉操作，恢复堆序性质</li>
+        <li>重复以上步骤，直到堆的大小为 1</li>
+      </ol>
+
+      <pre><code>def heap_sort(arr):
+    n = len(arr)
+    build_heap(arr)
+    for i in range(n - 1, 0, -1):
+        arr[0], arr[i] = arr[i], arr[0]  # 交换堆顶与末尾
+        sift_down(arr, i, 0)             # 在缩小的堆中恢复堆序</code></pre>
+
+      <p>这个过程对每个元素执行一次 O(log n) 的下沉，因此排序阶段的时间复杂度为 O(n log n)。</p>
+
+      <h2>完整实现</h2>
+      <p>以下是堆排序的完整 Python 实现：</p>
+
+      <pre><code>def heap_sort(arr):
+    """堆排序，升序排列"""
+    n = len(arr)
+
+    # 建堆：自底向上
+    for i in range(n // 2 - 1, -1, -1):
+        _sift_down(arr, n, i)
+
+    # 逐个提取最大值
+    for i in range(n - 1, 0, -1):
+        arr[0], arr[i] = arr[i], arr[0]
+        _sift_down(arr, i, 0)
+
+
+def _sift_down(arr, n, i):
+    """将 arr[i] 下沉到合适位置"""
+    while True:
+        largest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+        if left &lt; n and arr[left] &gt; arr[largest]:
+            largest = left
+        if right &lt; n and arr[right] &gt; arr[largest]:
+            largest = right
+        if largest == i:
+            break
+        arr[i], arr[largest] = arr[largest], arr[i]
+        i = largest</code></pre>
+
+      <h2>复杂度总结</h2>
+      <table class="complexity-table">
+        <thead>
+          <tr><th>指标</th><th>数值</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>最佳时间复杂度</td><td>O(n log n)</td></tr>
+          <tr><td>平均时间复杂度</td><td>O(n log n)</td></tr>
+          <tr><td>最坏时间复杂度</td><td>O(n log n)</td></tr>
+          <tr><td>空间复杂度</td><td>O(1)</td></tr>
+          <tr><td>稳定性</td><td>不稳定</td></tr>
+          <tr><td>是否原地</td><td>是</td></tr>
+        </tbody>
+      </table>
+
+      <h2>与其他排序算法的比较</h2>
+      <ul>
+        <li><strong>vs 快速排序：</strong>快速排序在实践中通常更快（更好的缓存局部性），但最坏情况下退化为 O(n²)。堆排序保证了 O(n log n) 的严格上界，在需要稳定性能的场合更可靠。</li>
+        <li><strong>vs 归并排序：</strong>归并排序是稳定的排序算法且同样保证 O(n log n)，但需要 O(n) 额外空间。堆排序是原地算法，适合内存受限的场景。</li>
+        <li><strong>vs 插入排序：</strong>对于小规模数据或接近有序的数据，插入排序更快。实际应用中常将堆排序与其他排序混合使用。</li>
+      </ul>
+
+      <h2>优先队列视角</h2>
+      <p>堆排序可以理解为：将所有元素插入一个优先队列（最大堆），然后反复取出最大值。这种视角揭示了堆排序与优先队列之间的本质联系——实际上，二叉堆正是实现优先队列的标准数据结构。</p>
+      <p>在这个框架下，建堆等同于批量入队，排序等同于 N 次出队。理解了优先队列，也就理解了堆排序。</p>
+
+      <h2>总结</h2>
+      <p>堆排序的美妙之处在于，它利用完全二叉树在数组中的紧凑表示，在不使用额外空间的前提下，实现了 O(n log n) 的比较排序下界。它的核心思想——建堆和反复提取堆顶——简单而深刻。</p>
+      <p>理解堆排序不仅是学习排序算法的重要一环，更是理解堆这种数据结构及其在优先队列、图算法（如 Dijkstra 算法）中广泛应用的基础。</p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 胡逸枫 · 中国科学技术大学</p>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Claude Code configuration (contains API keys)
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Assignment materials (not part of the website)
+doc.pdf
+doc_content.txt
