@@ -9,18 +9,19 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 </head>
 <body>
-  <nav class="top-nav">
-    <div class="top-nav-inner">
-      <a href="../index.html" class="top-nav-logo">Yifeng Hu</a>
-      <ul class="top-nav-links">
+  <header class="topbar">
+    <div class="wrapper">
+      <a href="../index.html" class="logo">Yifeng Hu</a>
+      <ul class="topbar-nav">
         <li><a href="../index.html">首页</a></li>
         <li><a href="../blog.html">博客</a></li>
         <li><a href="https://github.com/NerocAngevil" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </div>
-  </nav>
+  </header>
 
-  <main class="page-main">
+  <div class="wrapper">
+    <main style="padding: 2.5rem 0 3rem;">
     <article class="blog-post">
       <a href="../blog.html" class="back-link">← 返回博客列表</a>
       <h1>堆排序：从二叉堆到原地排序</h1>
@@ -210,7 +211,8 @@ def _sift_down(arr, n, i):
         理解堆排序不仅是学习排序算法的重要一环，更是理解堆这种数据结构及其在优先队列、图算法（如 Dijkstra 最短路径算法、Prim 最小生成树算法）中广泛应用的基础。
       </p>
     </article>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <p>&copy; 2026 胡逸枫 · 中国科学技术大学</p>
