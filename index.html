@@ -8,119 +8,94 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <header class="topbar">
-    <div class="wrapper">
-      <a href="index.html" class="logo">Yifeng Hu</a>
-      <ul class="topbar-nav">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Yifeng Hu</a>
+      <ul class="nav-links">
         <li><a href="index.html">首页</a></li>
         <li><a href="blog.html">博客</a></li>
         <li><a href="https://github.com/NerocAngevil" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </div>
+  </nav>
+
+  <header class="hero">
+    <h1>胡逸枫</h1>
+    <p class="sub">中国科学技术大学 · 少年班学院 · 计算数学</p>
+    <div class="tags">
+      <span>计算数学</span>
+      <span>算法与数据结构</span>
+      <span>科学计算</span>
+    </div>
   </header>
 
-  <div class="wrapper">
-    <div class="header">
-      <div class="avatar-circle">YH</div>
-      <h1>胡逸枫</h1>
-      <p class="byline">中国科学技术大学 · 少年班学院 · 计算数学</p>
-      <div class="tags">
-        <span>计算数学</span>
-        <span>算法与数据结构</span>
-        <span>科学计算</span>
+  <main class="main">
+    <section class="sec">
+      <h2 class="sec-heading">关于我</h2>
+      <div class="about-2col">
+        <div class="about-card">
+          <h3>教育背景</h3>
+          <p>中国科学技术大学少年班学院 2023 级本科生，就读于计算数学专业。</p>
+        </div>
+        <div class="about-card">
+          <h3>技术兴趣</h3>
+          <ul>
+            <li>数值计算与科学计算</li>
+            <li>算法设计与优化</li>
+            <li>数据结构与程序性能</li>
+            <li>开源技术社区</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <main>
-      <section>
-        <p class="sec-title">关于我</p>
-        <div class="about-grid">
-          <div class="about-item">
-            <h3>教育背景</h3>
-            <p>中国科学技术大学少年班学院 2023 级本科生，就读于计算数学专业。</p>
-          </div>
-          <div class="about-item">
-            <h3>技术兴趣</h3>
-            <ul>
-              <li>数值计算与科学计算</li>
-              <li>算法设计与优化</li>
-              <li>数据结构与程序性能</li>
-              <li>开源技术社区</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+    <section class="sec">
+      <h2 class="sec-heading">技能 & 工具</h2>
+      <div class="skills">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C / C++</span>
+        <span class="skill-tag">LaTeX</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">NumPy / SciPy</span>
+        <span class="skill-tag">HTML & CSS</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Linux</span>
+      </div>
+    </section>
 
-      <hr class="section-divider">
+    <section class="sec">
+      <h2 class="sec-heading">博客</h2>
+      <div class="blog-card">
+        <p class="meta">2026 年 5 月 5 日</p>
+        <h3><a href="blog/heap-sort.html">堆排序：从二叉堆到原地排序</a></h3>
+        <p class="excerpt">堆排序是一种基于比较的原地排序算法，利用二叉堆的数据结构特性实现 O(n log n) 的时间复杂度。</p>
+        <span class="tag">算法</span>
+        <span class="tag">排序</span>
+      </div>
+    </section>
 
-      <section>
-        <p class="sec-title">技能 & 工具</p>
-        <div class="skill-row">
-          <span class="skill-pill">Python</span>
-          <span class="skill-pill">C / C++</span>
-          <span class="skill-pill">LaTeX</span>
-          <span class="skill-pill">MATLAB</span>
-          <span class="skill-pill">NumPy / SciPy</span>
-          <span class="skill-pill">HTML & CSS</span>
-          <span class="skill-pill">Git</span>
-          <span class="skill-pill">Linux</span>
-        </div>
-      </section>
+    <section class="sec">
+      <h2 class="sec-heading">本学期课程</h2>
+      <div class="course-2col">
+        <div class="course-card"><h3>计算方法</h3><p>数值逼近、数值积分、常微分方程数值解</p></div>
+        <div class="course-card"><h3>最优化理论</h3><p>线性规划、非线性规划、凸优化基础</p></div>
+        <div class="course-card"><h3>数据结构与算法</h3><p>排序、图论、动态规划、复杂度分析</p></div>
+        <div class="course-card"><h3>实变函数</h3><p>测度论、Lebesgue 积分</p></div>
+      </div>
+    </section>
 
-      <hr class="section-divider">
-
-      <section>
-        <p class="sec-title">博客</p>
-        <div class="blog-card">
-          <p class="meta">2026 年 5 月 5 日</p>
-          <h3><a href="blog/heap-sort.html">堆排序：从二叉堆到原地排序</a></h3>
-          <p class="excerpt">堆排序是一种基于比较的原地排序算法，利用二叉堆的数据结构特性实现 O(n log n) 的时间复杂度。</p>
-          <span class="tag">算法</span>
-          <span class="tag">排序</span>
-        </div>
-      </section>
-
-      <hr class="section-divider">
-
-      <section>
-        <p class="sec-title">本学期课程</p>
-        <div class="course-grid">
-          <div class="course-item">
-            <h3>计算方法</h3>
-            <p>数值逼近、数值积分、常微分方程数值解</p>
-          </div>
-          <div class="course-item">
-            <h3>最优化理论</h3>
-            <p>线性规划、非线性规划、凸优化基础</p>
-          </div>
-          <div class="course-item">
-            <h3>数据结构与算法</h3>
-            <p>排序、图论、动态规划、复杂度分析</p>
-          </div>
-          <div class="course-item">
-            <h3>实变函数</h3>
-            <p>测度论、Lebesgue 积分</p>
-          </div>
-        </div>
-      </section>
-
-      <hr class="section-divider">
-
-      <section>
-        <p class="sec-title">联系</p>
-        <div class="contact-row">
-          <a href="https://github.com/NerocAngevil" target="_blank" rel="noopener" class="contact-link">&#9906; GitHub</a>
-          <a href="mailto:yifenghu@mail.ustc.edu.cn" class="contact-link">&#9993; Email</a>
-        </div>
-      </section>
-    </main>
-  </div>
+    <section class="sec">
+      <h2 class="sec-heading">联系</h2>
+      <div class="contact">
+        <a href="https://github.com/NerocAngevil" target="_blank" rel="noopener">&#9906; GitHub</a>
+        <a href="mailto:yifenghu@mail.ustc.edu.cn">&#9993; Email</a>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
-    <p>&copy; 2026 胡逸枫 · 中国科学技术大学 · <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a></p>
+    <p>&copy; 2026 胡逸枫 · 中国科学技术大学 · Powered by <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a></p>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>
