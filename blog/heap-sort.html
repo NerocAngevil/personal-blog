@@ -20,30 +20,34 @@
     </div>
   </nav>
 
-  <main class="main">
-    <article class="blog-post">
-      <a href="../blog.html" class="back-link">← 返回博客列表</a>
-      <h1>堆排序：从二叉堆到原地排序</h1>
-      <p class="meta">2026 年 5 月 5 日 · 胡逸枫 · 算法</p>
+  <div class="post-layout">
 
-      <nav class="blog-toc">
+    <aside class="post-sidebar">
+      <nav class="post-toc">
         <div class="toc-title">目录</div>
         <ol>
           <li><a href="#intro">引言</a></li>
           <li><a href="#binary-heap">二叉堆</a></li>
           <li class="toc-h3"><a href="#heap-def">定义</a></li>
           <li class="toc-h3"><a href="#heap-array">数组表示</a></li>
-          <li><a href="#sift-down">核心操作：下沉（Sift-Down）</a></li>
+          <li><a href="#sift-down">下沉操作</a></li>
           <li><a href="#build-heap">建堆</a></li>
-          <li class="toc-h3"><a href="#build-complexity">建堆复杂度分析</a></li>
+          <li class="toc-h3"><a href="#build-complexity">复杂度分析</a></li>
           <li><a href="#sort-process">排序过程</a></li>
           <li><a href="#full-impl">完整实现</a></li>
           <li><a href="#complexity-summary">复杂度总结</a></li>
-          <li><a href="#comparison">与其他排序算法的比较</a></li>
+          <li><a href="#comparison">与其他算法比较</a></li>
           <li><a href="#pq-view">优先队列视角</a></li>
           <li><a href="#conclusion">总结</a></li>
         </ol>
       </nav>
+    </aside>
+
+    <div class="post-body">
+      <article class="blog-post">
+        <a href="../blog.html" class="back-link">← 返回博客列表</a>
+        <h1>堆排序：从二叉堆到原地排序</h1>
+        <p class="meta">2026 年 5 月 5 日 · 胡逸枫 · 算法</p>
 
       <h2 id="intro">引言</h2>
       <p>
@@ -210,7 +214,9 @@ def _sift_down(arr, n, i):
         理解堆排序不仅是学习排序算法的重要一环，更是理解堆这种数据结构及其在优先队列、图算法（如 Dijkstra 最短路径算法、Prim 最小生成树算法）中广泛应用的基础。
       </p>
     </article>
-  </main>
+    </div>
+
+  </div>
 
   <footer class="footer">
     <p>&copy; 2026 胡逸枫 · 中国科学技术大学</p>

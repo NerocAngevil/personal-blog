@@ -180,6 +180,56 @@ a:hover { color: #3730a3; }
 .blog-item h3 a:hover { color: var(--color-primary); }
 .blog-item .excerpt { font-size: 0.93rem; color: var(--color-text-light); line-height: 1.7; }
 
+/* ===== Blog Post Layout (with sidebar ToC) ===== */
+.post-layout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.post-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;
+}
+
+.post-toc {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+}
+
+.post-toc .toc-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-text-light);
+  margin-bottom: 0.6rem;
+}
+
+.post-toc ol { list-style: none; padding: 0; }
+.post-toc li { padding: 0.1rem 0; font-size: 0.84rem; line-height: 1.5; }
+.post-toc li.toc-h3 { padding-left: 0.8rem; }
+.post-toc a { color: var(--color-text-light); display: block; padding: 0.15rem 0.4rem; border-radius: 4px; transition: all 0.15s; }
+.post-toc a:hover { color: var(--color-primary); text-decoration: none; background: var(--color-accent-light); }
+.post-toc a.active { color: var(--color-primary); font-weight: 600; background: var(--color-accent-light); }
+
+.post-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* TOC toggle button (mobile) */
+.toc-toggle {
+  display: none;
+}
+
 /* ===== Blog Post ===== */
 .blog-post h1 { font-size: 2.1rem; font-weight: 800; color: var(--color-heading); letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 0.3rem; }
 .blog-post .meta { font-size: 0.9rem; color: #94a3b8; margin-bottom: 1.5rem; }
@@ -232,6 +282,34 @@ a:hover { color: #3730a3; }
 .katex { font-size: 1.05em !important; }
 
 /* ===== Responsive ===== */
+@media (max-width: 800px) {
+  .post-layout {
+    flex-direction: column;
+    padding: 2rem 1.1rem 3rem;
+    gap: 1.2rem;
+  }
+
+  .post-sidebar {
+    width: 100%;
+    position: static;
+    order: -1;
+  }
+
+  .post-toc {
+    padding: 0.8rem 1rem;
+  }
+
+  .post-toc ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.8rem;
+  }
+
+  .post-toc li { padding: 0; }
+  .post-toc li.toc-h3 { padding-left: 0.6rem; }
+  .post-toc a { font-size: 0.82rem; padding: 0.1rem 0; }
+}
+
 @media (max-width: 640px) {
   html { font-size: 15px; }
   .hero { padding: 3rem 1.2rem 2.5rem; }
