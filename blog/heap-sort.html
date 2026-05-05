@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>堆排序：从二叉堆到原地排序 — 胡逸枫的博客</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 </head>
@@ -25,7 +26,26 @@
       <h1>堆排序：从二叉堆到原地排序</h1>
       <p class="meta">2026 年 5 月 5 日 · 胡逸枫 · 算法</p>
 
-      <h2>引言</h2>
+      <nav class="blog-toc">
+        <div class="toc-title">目录</div>
+        <ol>
+          <li><a href="#intro">引言</a></li>
+          <li><a href="#binary-heap">二叉堆</a></li>
+          <li class="toc-h3"><a href="#heap-def">定义</a></li>
+          <li class="toc-h3"><a href="#heap-array">数组表示</a></li>
+          <li><a href="#sift-down">核心操作：下沉（Sift-Down）</a></li>
+          <li><a href="#build-heap">建堆</a></li>
+          <li class="toc-h3"><a href="#build-complexity">建堆复杂度分析</a></li>
+          <li><a href="#sort-process">排序过程</a></li>
+          <li><a href="#full-impl">完整实现</a></li>
+          <li><a href="#complexity-summary">复杂度总结</a></li>
+          <li><a href="#comparison">与其他排序算法的比较</a></li>
+          <li><a href="#pq-view">优先队列视角</a></li>
+          <li><a href="#conclusion">总结</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="intro">引言</h2>
       <p>
         排序是计算机科学中最基础的问题之一。在众多基于比较的排序算法中，堆排序（Heap Sort）以其 $O(n \log n)$ 的最坏时间复杂度和 $O(1)$ 的额外空间开销，占据了独特的位置。它不像快速排序那样依赖随机化来避免最坏情况，也不像归并排序那样需要额外的线性空间。
       </p>
@@ -33,8 +53,8 @@
         理解堆排序的关键在于理解一种精巧的数据结构——<strong>二叉堆</strong>。本文将从堆的定义与性质出发，逐步推导堆排序的完整过程。
       </p>
 
-      <h2>二叉堆</h2>
-      <h3>定义</h3>
+      <h2 id="binary-heap">二叉堆</h2>
+      <h3 id="heap-def">定义</h3>
       <p>
         二叉堆是一棵<strong>完全二叉树</strong>，同时满足<strong>堆序性质</strong>。以最大堆（max-heap）为例，堆序性质要求每个节点的值都大于或等于其所有子节点的值：
       </p>
@@ -43,7 +63,7 @@
       </p>
       <p>相应地，最小堆（min-heap）要求 $A[\text{parent}(i)] \leq A[i]$。堆排序通常使用最大堆来实现升序排序。</p>
 
-      <h3>数组表示</h3>
+      <h3 id="heap-array">数组表示</h3>
       <p>
         由于完全二叉树的特殊结构，二叉堆可以非常高效地用数组表示，而不需要使用指针。对于下标从 $0$ 开始的数组，下标为 $i$ 的节点满足：
       </p>
@@ -54,7 +74,7 @@
       </ul>
       <p>这种表示使得我们可以在 $O(1)$ 时间内找到任意节点的父节点或子节点，且不需要额外指针存储——这正是堆排序能够原地工作的基础。</p>
 
-      <h2>核心操作：下沉（Sift-Down）</h2>
+      <h2 id="sift-down">核心操作：下沉（Sift-Down）</h2>
       <p>
         堆排序中最核心的操作是<strong>下沉</strong>：当一个节点的值可能小于其子节点时，将该节点与较大的子节点交换，然后递归地对新位置执行同样的操作，直到堆序性质恢复。这个操作也常被称为 <code>heapify</code> 或 <code>percolate-down</code>。
       </p>
@@ -76,7 +96,7 @@
 
       <p>下沉操作的时间复杂度为 $O(\log n)$，因为在最坏情况下，节点需要一直下沉到叶子节点，路径长度等于树的高度。</p>
 
-      <h2>建堆</h2>
+      <h2 id="build-heap">建堆</h2>
       <p>
         有了下沉操作之后，建堆变得非常简洁。高效的做法是<strong>从最后一个非叶子节点开始，自底向上地对每个节点执行下沉操作</strong>。
       </p>
@@ -90,7 +110,7 @@
     for i in range(n // 2 - 1, -1, -1):
         sift_down(arr, n, i)</code></pre>
 
-      <h3>建堆复杂度分析</h3>
+      <h3 id="build-complexity">建堆复杂度分析</h3>
       <p>
         这个过程的复杂度分析非常有趣。虽然每次下沉是 $O(\log n)$，但不同高度的节点数量不同——大部分节点靠近叶子，下沉代价很小。令 $h$ 表示节点的高度，高度为 $h$ 的节点最多有 $\lceil n/2^{h+1} \rceil$ 个，每个代价为 $O(h)$，因此总时间为：
       </p>
@@ -103,7 +123,7 @@
 
       <p>最后一步用到了无穷级数 $\sum_{h=0}^{\infty} h/2^h = 2$ 的性质。因此，<strong>建堆是线性时间 $O(n)$ 的</strong>，而非直观猜测的 $O(n \log n)$。</p>
 
-      <h2>排序过程</h2>
+      <h2 id="sort-process">排序过程</h2>
       <p>建堆完成后，数组被组织成了一个最大堆——根节点（下标 $0$）是最大的元素。排序的思路非常巧妙：</p>
 
       <ol>
@@ -122,7 +142,7 @@
 
       <p>这个过程对每个元素执行一次 $O(\log n)$ 的下沉，因此排序阶段的时间复杂度为 $O(n \log n)$。</p>
 
-      <h2>完整实现</h2>
+      <h2 id="full-impl">完整实现</h2>
       <p>以下是堆排序的完整 Python 实现，合并了建堆与排序两个阶段：</p>
 
       <pre><code>def heap_sort(arr):
@@ -154,7 +174,7 @@ def _sift_down(arr, n, i):
         arr[i], arr[largest] = arr[largest], arr[i]
         i = largest</code></pre>
 
-      <h2>复杂度总结</h2>
+      <h2 id="complexity-summary">复杂度总结</h2>
       <table class="complexity-table">
         <thead>
           <tr><th>指标</th><th>数值</th></tr>
@@ -169,20 +189,20 @@ def _sift_down(arr, n, i):
         </tbody>
       </table>
 
-      <h2>与其他排序算法的比较</h2>
+      <h2 id="comparison">与其他排序算法的比较</h2>
       <ul>
         <li><strong>vs 快速排序：</strong>快速排序在实践中通常更快（更好的缓存局部性），但最坏情况下退化为 $O(n^2)$。堆排序保证了 $O(n \log n)$ 的严格上界，在对最坏情况敏感的场合更可靠。</li>
         <li><strong>vs 归并排序：</strong>归并排序是稳定的排序算法且同样保证 $O(n \log n)$，但需要 $O(n)$ 额外空间。堆排序是原地算法，适合内存受限的场景。</li>
         <li><strong>vs 插入排序：</strong>对于小规模数据或接近有序的数据，插入排序更快。实际应用中常将堆排序与插入排序混合使用（如 IntroSort）。</li>
       </ul>
 
-      <h2>优先队列视角</h2>
+      <h2 id="pq-view">优先队列视角</h2>
       <p>
         堆排序可以理解为：将所有元素插入一个优先队列（最大堆），然后反复取出最大值。这种视角揭示了堆排序与优先队列之间的本质联系——实际上，二叉堆正是实现优先队列的标准数据结构。
       </p>
       <p>在这个框架下，建堆等同于 $n$ 个元素的批量入队，排序等同于 $n$ 次出队操作。理解了优先队列，也就理解了堆排序。</p>
 
-      <h2>总结</h2>
+      <h2 id="conclusion">总结</h2>
       <p>
         堆排序的美妙之处在于，它利用完全二叉树在数组中的紧凑表示，在不使用额外空间的前提下，达到了 $O(n \log n)$ 的比较排序下界。它的核心思想——<strong>建堆和反复提取堆顶</strong>——简单而深刻。
       </p>

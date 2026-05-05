@@ -346,6 +346,123 @@ img {
   margin-bottom: 0.6rem;
 }
 
+.project-card.real {
+  border-style: solid;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.project-card.real h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin-bottom: 0.4rem;
+}
+
+.project-card.real p {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+/* ===== Skills ===== */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill-tag {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: all 0.2s;
+}
+
+.skill-tag:hover {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== Contact ===== */
+.contact-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1.3rem;
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.93rem;
+  transition: all 0.2s;
+}
+
+.contact-item:hover {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+
+.contact-icon {
+  font-size: 1.1rem;
+}
+
+/* ===== Blog Table of Contents ===== */
+.blog-toc {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.blog-toc .toc-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.blog-toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.blog-toc li {
+  padding: 0.2rem 0;
+  font-size: 0.92rem;
+}
+
+.blog-toc li.toc-h3 {
+  padding-left: 1.4rem;
+}
+
+.blog-toc a {
+  color: var(--color-text-light);
+  transition: color 0.15s;
+}
+.blog-toc a:hover {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
 /* ===== Footer ===== */
 .footer {
   text-align: center;
